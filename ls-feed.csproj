@@ -7,7 +7,7 @@
     <ProjectGuid>{B459A582-AD1D-4CF5-8648-F4B828CD62C8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>ls_feed</RootNamespace>
-    <AssemblyName>ls-feed</AssemblyName>
+    <AssemblyName>lsFeed</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -34,6 +34,9 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon256.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,7 +52,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="icon256.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy $(ProjectDir)public $(TargetDir)public /D/E/C/I/H/Y</PostBuildEvent>
