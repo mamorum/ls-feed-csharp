@@ -14,7 +14,7 @@ namespace ls_feed {
         Assembly.GetExecutingAssembly().Location
       ).FullName.Replace('\\', '/');
       System.Diagnostics.Process.Start(
-        "file:///" + exeDir + "/public/index.html"
+        "file:///" + exeDir + "/asset/index.html"
       );
     }
   }

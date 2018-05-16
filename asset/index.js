@@ -79,12 +79,17 @@ $(function() {
   ///-> stop
   $('#stop').on('click', (e) => {
     e.preventDefault();
-    location.href="/app/stop";
+    $.ajax({
+      type: 'GET', url: host+'/stop'
+    }).done((data) => {
+      $('body').html('');
+      alert("lsFeed has stopped.");
+    });
   });
   ///-> onload
   $.ajax({
      type: 'GET', url: host+'/conf'
-    }).done((data) => {
+  }).done((data) => {
     conf = data;
     if (conf.feeds.length != 0) {
       $('.top').removeClass('hidden');
@@ -93,6 +98,6 @@ $(function() {
         sb += '<li><a href="' + conf.feeds[i].url + '">' + conf.feeds[i].title + '</a></li>';
       }
       $('#feeds').html(sb).find('a').first().click();
-    } 
+    }
   });
 });
