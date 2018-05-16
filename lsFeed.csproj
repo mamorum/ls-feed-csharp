@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B459A582-AD1D-4CF5-8648-F4B828CD62C8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ls_feed</RootNamespace>
+    <RootNamespace>lsFeed</RootNamespace>
     <AssemblyName>lsFeed</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

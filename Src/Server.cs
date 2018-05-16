@@ -6,7 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 
-namespace ls_feed {
+namespace lsFeed {
   class Server {
     static HttpListener lisn = new HttpListener();
     internal static void Start() {

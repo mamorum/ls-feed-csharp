@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace ls_feed {
+namespace lsFeed {
   class Data {
     static string dir = Environment.GetFolderPath(
       Environment.SpecialFolder.UserProfile

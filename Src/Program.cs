@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 
-namespace ls_feed {
+namespace lsFeed {
   class Program {
     static void Main(string[] args) {
       Server.Start();
