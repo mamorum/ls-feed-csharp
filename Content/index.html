@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>lsFeed</title>
+<link rel="stylesheet" href="./base.css">
+<link rel="stylesheet" href="./index.css">
+<script src="./lib/fontawesome-all.min.js"></script>
+</head>
+<body>
+<header>
+  <ul>
+    <li><a id="bar" href="#">
+      <i class="fas fa-bars"></i>
+    </a></li>
+    <li><a id="cog" href="./setting.html">
+      <i class="fas fa-cog"></i>
+    </a></li>
+    <li><a id="stop" href="#">
+      <i class="fas fa-power-off"></i>
+    </a></li>
+  </ul>
+</header>
+
+<div id="side">
+  <ul id="feeds"></ul>
+</div><!-- /side -->
+
+<div id="main">
+  <ul class="ctrl top hidden">
+    <li><a class="btn prev" href="#">
+      <i class="fas fa-angle-left fa-lg"></i>
+    </a></li>
+    <li id="title"></li>
+    <li><a class="btn next" href="#">
+      <i class="fas fa-angle-right fa-lg"></i>
+    </a></li>
+  </ul><!-- /.ctrl -->
+  <ul id="feed"></ul>
+  <ul class="ctrl bottom hidden">
+    <li><a class="btn prev" href="#">
+      <i class="fas fa-angle-left fa-lg"></i>
+    </a></li>
+    <li></li>
+    <li><a class="btn next" href="#">
+      <i class="fas fa-angle-right fa-lg"></i>
+    </a></li>
+  </ul><!-- /.ctrl -->
+</div><!-- /main -->
+<script src="./lib/jquery-3.3.1.min.js"></script>
+<script src="./index.js"></script>
+</body>
+</html>
