@@ -46,9 +46,6 @@ namespace ls_feed {
     }
     static void Stop(HttpListenerRequest req, HttpListenerResponse res) {
       res.StatusCode = 200;
-      res.ContentType = "text/html;charset=utf-8";
-      byte[] body = Encoding.UTF8.GetBytes("<p>Stopped.</p>");
-      res.OutputStream.Write(body, 0, body.Length);
       res.Close();
       Environment.Exit(0);
     }
