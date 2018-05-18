@@ -20,12 +20,16 @@ namespace lsFeed {
         HttpListenerRequest req = ctxt.Request;
         string path = req.Url.AbsolutePath;
         using (HttpListenerResponse res = ctxt.Response) {
-          res.AddHeader("Access-Control-Allow-Origin", "*");
-          if ("/fetch".Equals(path)) Fetch(req, res);
-          else if ("/read".Equals(path)) Read(req, res);
-          else if ("/write".Equals(path)) Write(req, res);
-          else if ("/stop".Equals(path)) break;
-          else res.StatusCode=404;
+          try {
+            res.AddHeader("Access-Control-Allow-Origin", "*");
+            if ("/fetch".Equals(path)) Fetch(req, res);
+            else if ("/read".Equals(path)) Read(req, res);
+            else if ("/write".Equals(path)) Write(req, res);
+            else if ("/stop".Equals(path)) break;
+            else res.StatusCode = 404;
+          } catch (Exception) {
+            res.StatusCode=500;
+          }
         }
       }
     }
