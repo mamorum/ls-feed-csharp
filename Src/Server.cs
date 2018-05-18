@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading;
@@ -13,45 +14,45 @@ namespace lsFeed {
       (new Thread(new ThreadStart(Listen))).Start();
     }
     static void Listen() {
-      Data.Init();
+      Conf.Init();
       while (true) {
         HttpListenerContext ctxt = lisn.GetContext();
-        HttpListenerResponse res = ctxt.Response;
-        res.AddHeader("Access-Control-Allow-Origin", "*");
         HttpListenerRequest req = ctxt.Request;
         string path = req.Url.AbsolutePath;
-        if ("/conf".Equals(path)) Conf(req, res);
-        else if ("/fetch".Equals(path)) Fetch(req, res);
-        else if ("/stop".Equals(path)) Stop(req, res);
-        else NotFound(res);
+        using (HttpListenerResponse res = ctxt.Response) {
+          res.AddHeader("Access-Control-Allow-Origin", "*");
+          if ("/fetch".Equals(path)) Fetch(req, res);
+          else if ("/read".Equals(path)) Read(req, res);
+          else if ("/write".Equals(path)) Write(req, res);
+          else if ("/stop".Equals(path)) break;
+          else res.StatusCode=404;
+        }
       }
-    }
-    static void Conf(HttpListenerRequest req, HttpListenerResponse res) {
-      res.StatusCode = 200;
-      res.ContentType = "application/json;charset=utf-8";
-      Data.ConfFile().CopyTo(res.OutputStream);
-      res.Close();
     }
     static void Fetch(HttpListenerRequest req, HttpListenerResponse res) {
       string url = req.QueryString.Get("url");
-      WebResponse rss = WebRequest.Create(url).GetResponse();
-      res.StatusCode = (int) ((HttpWebResponse) rss).StatusCode;
-      res.ContentType = rss.ContentType;
-      rss.GetResponseStream().CopyTo(res.OutputStream);
-      rss.Close();
-      res.Close();
+      using (WebResponse rss = WebRequest.Create(url).GetResponse()) {
+        res.StatusCode = (int)((HttpWebResponse) rss).StatusCode;
+        res.ContentType = rss.ContentType;
+        using (Stream from = rss.GetResponseStream()) {
+          from.CopyTo(res.OutputStream);
+        }
+      }
     }
-    static void Stop(HttpListenerRequest req, HttpListenerResponse res) {
+    static void Read(HttpListenerRequest req, HttpListenerResponse res) {
       res.StatusCode = 200;
-      res.Close();
-      Environment.Exit(0);
+      res.ContentType = "application/json;charset=utf-8";
+      using (FileStream conf = File.Open(Conf.file, FileMode.Open)) {
+        conf.CopyTo(res.OutputStream);
+      }
     }
-    static void NotFound(HttpListenerResponse res) {
-      res.StatusCode = 404;
-      res.ContentType = "text/html;charset=utf-8";
-      byte[] body = Encoding.UTF8.GetBytes("<p>Not Found.</p>");
-      res.OutputStream.Write(body, 0, body.Length);
-      res.Close();
+    static void Write(HttpListenerRequest req, HttpListenerResponse res) {
+      res.StatusCode = 200;
+      using (Stream from = req.InputStream) {
+        using (FileStream to = File.Open(Conf.file, FileMode.Create)) {
+          from.CopyTo(to);
+        }
+      }
     }
   }
 }

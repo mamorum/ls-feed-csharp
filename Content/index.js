@@ -1,4 +1,4 @@
-//let conf = null;
+let conf = null;
 let host = "http://localhost:8080"
 
 let $li = null; // selected li (side menu)
@@ -88,7 +88,7 @@ $(function() {
   });
   ///-> onload
   $.ajax({
-     type: 'GET', url: host+'/conf'
+     type: 'GET', url: host+'/read'
   }).done((data) => {
     conf = data;
     if (conf.feeds.length != 0) {

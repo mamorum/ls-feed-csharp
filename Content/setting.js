@@ -1,4 +1,5 @@
 let conf = null;
+let host = 'http://localhost:8080'
 
 function render() {  
   $('#feeds').empty();
@@ -10,11 +11,11 @@ function render() {
 }
 function del($li) {
   let index = $li.attr('data-index');
+  conf.feeds.splice(index, 1);
   $.ajax({
-    type: 'DELETE',
-    url: '/app/conf/feed/'+index
+    type: 'POST', url: host+'/write',
+    data: JSON.stringify(conf)
   }).done(() => {
-    conf.feeds.splice(index, 1);
     render();
   });
 }
@@ -24,11 +25,13 @@ function add($title, $url) {
   if (title === '' || url === '') {
     return;
   }
+  conf.feeds.push(
+    {"title": title, "url": url}
+  );
   $.ajax({
-    type: 'POST', url: '/app/conf/feed',
-    data: { "title": title, "url": url }
+    type: 'POST', url: host+'/write',
+    data: JSON.stringify(conf)
   }).done(() => {
-    conf.feeds.push({"title": title, "url": url});
     render();
     $('#modal-close').click();
     $title.val('');
@@ -52,7 +55,7 @@ $(function() {
   });
   //-> onload
   $.ajax({
-    type: 'GET', url: '/app/conf'
+    type: 'GET', url: host+'/read'
   }).done((data) => {
     conf = data;
     if (conf.feeds.length != 0) {
