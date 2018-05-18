@@ -1,5 +1,5 @@
 let conf = null;
-let host = 'http://localhost:8080'
+let host = 'http://localhost:8622'
 
 function render() {  
   $('#feeds').empty();
