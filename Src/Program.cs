@@ -1,18 +1,13 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
 
 namespace lsFeed {
   class Program {
+    static string url = "http://localhost:8622/";
     static void Main(string[] args) {
-      Server.Start();
+      Server.Start(url);
       //-> open browser
-      string exeDir = Directory.GetParent(
-        Assembly.GetExecutingAssembly().Location
-      ).FullName.Replace('\\', '/');
-      System.Diagnostics.Process.Start(
-        "file:///" + exeDir + "/content/index.html"
-      );
+      System.Diagnostics.Process.Start(url);
     }
   }
 }

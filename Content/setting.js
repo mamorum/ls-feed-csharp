@@ -1,5 +1,4 @@
 let conf = null;
-let host = 'http://localhost:8622'
 
 function render() {  
   $('#feeds').empty();
@@ -13,7 +12,7 @@ function del($li) {
   let index = $li.attr('data-index');
   conf.feeds.splice(index, 1);
   $.ajax({
-    type: 'POST', url: host+'/write',
+    type: 'POST', url: '/write',
     data: JSON.stringify(conf)
   }).done(() => {
     render();
@@ -29,7 +28,7 @@ function add($title, $url) {
     {"title": title, "url": url}
   );
   $.ajax({
-    type: 'POST', url: host+'/write',
+    type: 'POST', url: '/write',
     data: JSON.stringify(conf)
   }).done(() => {
     render();
@@ -55,7 +54,7 @@ $(function() {
   });
   //-> onload
   $.ajax({
-    type: 'GET', url: host+'/read'
+    type: 'GET', url: '/read'
   }).done((data) => {
     conf = data;
     if (conf.feeds.length != 0) {

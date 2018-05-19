@@ -1,5 +1,4 @@
 let conf = null;
-let host = "http://localhost:8622"
 
 let $li = null; // selected li (side menu)
 let loading = false;
@@ -20,7 +19,7 @@ function fetch($a) {
   $('#feed').html('');
   $.ajax({
     type: 'GET',
-    url: host+'/fetch?url='+$a.attr('href')
+    url: '/fetch?url='+$a.attr('href')
   }).done((data) => {
     let list = '';
     let $items = $(data).find('item');
@@ -80,7 +79,7 @@ $(function() {
   $('#stop').on('click', (e) => {
     e.preventDefault();
     $.ajax({
-      type: 'GET', url: host+'/stop'
+      type: 'GET', url: '/stop'
     }).done((data) => {
       $('body').html('');
       alert("lsFeed has stopped.");
@@ -88,7 +87,7 @@ $(function() {
   });
   ///-> onload
   $.ajax({
-     type: 'GET', url: host+'/read'
+     type: 'GET', url: '/read'
   }).done((data) => {
     conf = data;
     if (conf.feeds.length != 0) {
