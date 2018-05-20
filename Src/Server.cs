@@ -12,7 +12,7 @@ namespace lsFeed {
       listener.Prefixes.Add(url);
       try { listener.Start(); }
       catch (HttpListenerException) {
-        return; // Url already used.
+        return; // url is used.
       }
       Conf.Init();
       (new Thread(Listen)).Start();
@@ -35,6 +35,7 @@ namespace lsFeed {
       HttpListenerContext ctxt = (HttpListenerContext)o;
       HttpListenerRequest req = ctxt.Request;
       HttpListenerResponse res = ctxt.Response;
+      // res.Headers.Add("Server", null); // delete header.
       string path = req.Url.AbsolutePath;
       if ("/stop".Equals(path)) {
         res.StatusCode = 200;

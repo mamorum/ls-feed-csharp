@@ -5,8 +5,8 @@ using System.Threading;
 
 namespace lsFeed {
   class Program {
+    static string url = "http://localhost:8622/";
     static void Main(string[] args) {
-      string url = "http://localhost:8622/";
       Server.Start(url);
       Browse(url);
     }

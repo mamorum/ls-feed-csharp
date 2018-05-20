@@ -13,7 +13,8 @@ function del($li) {
   conf.feeds.splice(index, 1);
   $.ajax({
     type: 'POST', url: '/write',
-    data: JSON.stringify(conf)
+    data: JSON.stringify(conf),
+    contentType: 'application/json;charset=utf-8'
   }).done(() => {
     render();
   });
@@ -29,7 +30,8 @@ function add($title, $url) {
   );
   $.ajax({
     type: 'POST', url: '/write',
-    data: JSON.stringify(conf)
+    data: JSON.stringify(conf),
+    contentType: 'application/json;charset=utf-8'
   }).done(() => {
     render();
     $('#modal-close').click();
