@@ -1,6 +1,5 @@
 let conf = null;
-
-function render() {  
+function render() {
   $('#feeds').empty();
   let buf = "";
   for (let i=0; i<conf.feeds.length; i++) {
@@ -11,13 +10,7 @@ function render() {
 function del($li) {
   let index = $li.attr('data-index');
   conf.feeds.splice(index, 1);
-  $.ajax({
-    type: 'POST', url: '/write',
-    data: JSON.stringify(conf),
-    contentType: 'application/json;charset=utf-8'
-  }).done(() => {
-    render();
-  });
+  ConfApi.write(conf, render);
 }
 function add($title, $url) {
   let title = $title.val();
@@ -28,11 +21,7 @@ function add($title, $url) {
   conf.feeds.push(
     {"title": title, "url": url}
   );
-  $.ajax({
-    type: 'POST', url: '/write',
-    data: JSON.stringify(conf),
-    contentType: 'application/json;charset=utf-8'
-  }).done(() => {
+  ConfApi.write(conf, () => {
     render();
     $('#modal-close').click();
     $title.val('');
@@ -55,9 +44,7 @@ $(function() {
     add($('#m-title'), $('#m-url'));
   });
   //-> onload
-  $.ajax({
-    type: 'GET', url: '/read'
-  }).done((data) => {
+  ConfApi.read((data) => {
     conf = data;
     if (conf.feeds.length != 0) {
       render();

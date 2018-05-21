@@ -35,7 +35,7 @@ namespace lsFeed {
       HttpListenerContext ctxt = (HttpListenerContext)o;
       HttpListenerRequest req = ctxt.Request;
       HttpListenerResponse res = ctxt.Response;
-      // res.Headers.Add("Server", null); // delete header.
+      res.Headers.Add("Server", null); // delete header.
       string path = req.Url.AbsolutePath;
       if ("/stop".Equals(path)) {
         res.StatusCode = 200;
@@ -47,7 +47,7 @@ namespace lsFeed {
         if ("/fetch".Equals(path)) Fetch(req, res);
         else if ("/read".Equals(path)) Conf.Read(req, res);
         else if ("/write".Equals(path)) Conf.Write(req, res);
-        else Content.Serve(path, req, res);
+        else Content.Read(path, req, res);
       } catch (Exception e) {
         Console.WriteLine(e.StackTrace);
         res.StatusCode = 500;

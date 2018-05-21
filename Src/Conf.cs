@@ -13,7 +13,8 @@ namespace lsFeed {
       if (File.Exists(file)) return;
       if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
       using (FileStream f = File.Create(file)) {
-        byte[] json = Encoding.UTF8.GetBytes("{\"feeds\":[]}");
+        string none = "{}";  // json data is managed by javascript.
+        byte[] json = Encoding.UTF8.GetBytes(none);
         f.Write(json, 0, json.Length);
       }
     }

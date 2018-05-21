@@ -1,7 +1,6 @@
-let conf = null;
-
-let $li = null; // selected li (side menu)
 let loading = false;
+let conf = null;
+let $li = null; // selected li (side menu)
 
 function fetch($a) {
   if (loading) return;
@@ -86,9 +85,7 @@ $(function() {
     });
   });
   ///-> onload
-  $.ajax({
-     type: 'GET', url: '/read'
-  }).done((data) => {
+  ConfApi.read((data) => {
     conf = data;
     if (conf.feeds.length != 0) {
       $('.top').removeClass('hidden');

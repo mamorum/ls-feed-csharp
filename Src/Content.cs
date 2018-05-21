@@ -9,18 +9,19 @@ namespace lsFeed {
     static string dir = Directory.GetParent(
       Assembly.GetExecutingAssembly().Location
     ) + "\\Content";
-    internal static void Serve(string path, HttpListenerRequest req, HttpListenerResponse res) {
-      string file;
-      if ("/".Equals(path)) {
-        file = dir + ("\\index.html");
-      } else {
-        file = dir + path.Replace('/', '\\');
-      }
-      if (!File.Exists(file)) {
-        res.StatusCode = 404;
-        return;
-      }
-      string lastModified = LastModified(file);
+    static string FullPath(string path) {
+      if ("/".Equals(path)) return dir + ("\\index.html");
+      else return dir + path.Replace('/', '\\');
+    }
+    internal static void Read(
+      string path, HttpListenerRequest req, HttpListenerResponse res
+    ) {
+      string file = FullPath(path);
+      if (File.Exists(file)) Serve(file, req, res);
+      else res.StatusCode = 404;
+    }
+    static void Serve(string file, HttpListenerRequest req, HttpListenerResponse res) {
+      string lastModified = LastModified(file); // file timestamp.
       string ifModifiedSince = req.Headers.Get("If-Modified-Since");
       if (lastModified.Equals(ifModifiedSince)) {
         res.StatusCode = 304;
@@ -28,8 +29,8 @@ namespace lsFeed {
       }
       res.AddHeader("Last-Modified", lastModified);
       res.AddHeader("Cache-Control", "no-cache");
-      res.StatusCode = 200;
       res.ContentType = ContentType(file);
+      res.StatusCode = 200;
       using (FileStream content = File.Open(file, FileMode.Open)) {
         content.CopyTo(res.OutputStream);
       }
