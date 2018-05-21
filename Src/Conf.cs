@@ -7,14 +7,14 @@ namespace lsFeed {
   class Conf {
     static string dir = Environment.GetFolderPath(
       Environment.SpecialFolder.UserProfile
-    ) + "\\.lsFeed";
+    ) + "\\lsFeed";
     static string file = dir + "\\conf.json";
     internal static void Init() {
       if (File.Exists(file)) return;
       if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
       using (FileStream f = File.Create(file)) {
-        string none = "{}";  // json data is managed by javascript.
-        byte[] json = Encoding.UTF8.GetBytes(none);
+        string empty = "{}";  // javascript manages json.
+        byte[] json = Encoding.UTF8.GetBytes(empty);
         f.Write(json, 0, json.Length);
       }
     }
