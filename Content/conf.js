@@ -1,9 +1,8 @@
 ﻿class Conf {
-  //-> set conf.json val or default
   constructor(json) {
     if ('feeds' in json) {
       this.feeds=json.feeds;
-    } else {
+    } else { //-> default
       this.feeds=[];
     }
   }

@@ -48,8 +48,7 @@ namespace lsFeed {
         else if ("/read".Equals(path)) Conf.Read(req, res);
         else if ("/write".Equals(path)) Conf.Write(req, res);
         else Content.Read(path, req, res);
-      } catch (Exception e) {
-        Console.WriteLine(e.StackTrace);
+      } catch (Exception) {
         res.StatusCode = 500;
       } finally {
         res.Close();
