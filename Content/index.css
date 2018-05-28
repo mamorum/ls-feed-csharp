@@ -63,17 +63,18 @@ header #stop {
   background-color: #fff;
 }
 .prev {
-  padding: 5px 14px 3px 13px;
+  padding: 6px 14px 4px 13px;
 }
 .next {
-  padding: 5px 13px 3px 14px;
+  padding: 6px 13px 4px 14px;
 }
 #title {
-  font-size: 18px;
+  margin-top: 5px;
+  font-size: 20px;
 }
 #feed {
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 #feed li {
   background-color: #fff;
