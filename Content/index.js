@@ -16,10 +16,7 @@ function fetch($a) {
   $('.bottom').addClass('hidden');
   $('#title').text('Loading...');
   $('#feed').html('');
-  $.ajax({
-    type: 'GET',
-    url: '/fetch?url='+$a.attr('href')
-  }).done((data) => {
+  FetchApi.fetch($a.attr('href'), (data) => {
     let list = '';
     let $items = $(data).find('item');
     for (let i=0; i<$items.length; i++) {
