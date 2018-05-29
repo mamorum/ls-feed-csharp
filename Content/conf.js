@@ -1,6 +1,5 @@
 ﻿let isDemo = 'localhost' != location.hostname;
 if (isDemo) {
-  $('#cog').addClass('hidden');
   $('#stop').addClass('hidden');
 }
 let demoData = {"feeds":
@@ -39,7 +38,11 @@ class ConfApi {
       done(new Conf(data));
     });
   }
-  static write(conf, done) {    
+  static write(conf, done) {
+    if (isDemo) {
+      done();
+      return;
+    }
     $.ajax({
       type: 'POST', url: '/write',
       data: JSON.stringify(conf),
@@ -47,9 +50,9 @@ class ConfApi {
     }).done(done);
   }
 }
+let reqUrl;
 class FetchApi {
   static fetch(url, done) {
-    let reqUrl;
     if (isDemo) reqUrl = url;
     else reqUrl = '/fetch?url='+url;
     $.ajax({

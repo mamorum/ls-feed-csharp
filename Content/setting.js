@@ -1,4 +1,6 @@
 let conf = null;
+let mode = null; // 'edit' or 'add'
+let feed = null; // edit target
 function render() {
   $('#feeds').empty();
   let buf = "";
@@ -20,41 +22,76 @@ function render() {
   } //-> rebuild data-index.
   $('#feeds').html(buf)
 }
-function del($li) {
-  let index = $li.attr('data-index');
+function del(index) {
   conf.feeds.splice(index, 1);
   ConfApi.write(conf, render);
 }
-function add($title, $url) {
-  let title = $title.val();
-  let url = $url.val();
-  if (title === '' || url === '') {
-    return;
-  }
+function add(title, url) {
   conf.feeds.push(
     {"title": title, "url": url}
   );
-  ConfApi.write(conf, () => {
-    render();
-    $('#modal-close').click();
-    $title.val('');
-    $url.val('');
-  });
+  ConfApi.write(conf, writeDone);
+}
+function edit(title, url) {
+  feed.title = title;
+  feed.url = url;
+  ConfApi.write(conf, writeDone);
+}
+function writeDone() {
+  render();
+  $('#modal-close').click();
+  $('#m-title').val('');
+  $('#m-url').val('');
+}
+function empty(title, url) {
+  if (title === '' || url === '') return true;
+}
+function modal(md, msg, title, url, btn) {
+  mode = md;
+  $('#m-msg').html(msg);
+  $('#m-title').val(title);
+  $('#m-url').val(url);
+  $('#m-btn').html(btn);
+  $('#modal-trigger').prop('checked', true);
+  $('#m-title').focus();
 }
 
 $(function() {
   $('#feeds').on('click', '.delete', (e) => {
     e.preventDefault();
-    del($(e.currentTarget).parent('li'));
+    let $li = $(
+      e.currentTarget
+    ).parents('.feed');
+    let index = $li.attr('data-index');
+    del(index);
+  });
+  $('#feeds').on('click', '.edit', (e) => {
+    e.preventDefault();
+    let $li = $(
+      e.currentTarget
+    ).parents('.feed');
+    let index = $li.attr('data-index');
+    feed = conf.feeds[index];
+    modal(
+      'edit', 'Edit the feed',
+      feed.title, feed.url, 'Save'
+    );
   });
   $('#add').on('click', (e) => {
     e.preventDefault();
-    $('#modal-trigger').prop('checked', true);
-    $('#m-title').focus();
+    modal(
+      'add', 'Add a new feed', '', '', 'Add'
+    );
   });
-  $('#m-add').on('click', (e) => {
+  $('#m-btn').on('click', (e) => {
     e.preventDefault();
-    add($('#m-title'), $('#m-url'));
+    let $title = $('#m-title');
+    let $url = $('#m-url');
+    let title = $title.val();
+    let url = $url.val();
+    if (empty(title, url)) return;
+    if (mode === 'add') add(title, url);
+    else if (mode === 'edit') edit(title, url);
   });
   //-> onload
   ConfApi.read((data) => {

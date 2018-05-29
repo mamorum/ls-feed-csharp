@@ -9,14 +9,10 @@ namespace lsFeed {
     static string dir = Directory.GetParent(
       Assembly.GetExecutingAssembly().Location
     ) + "\\Content";
-    static string FullPath(string path) {
-      if ("/".Equals(path)) return dir + ("\\index.html");
-      else return dir + path.Replace('/', '\\');
-    }
     internal static void Read(
       string path, HttpListenerRequest req, HttpListenerResponse res
     ) {
-      string file = FullPath(path);
+      string file = dir + path.Replace('/', '\\'); // full path
       if (File.Exists(file)) Serve(file, req, res);
       else res.StatusCode = 404;
     }
