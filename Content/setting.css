@@ -19,17 +19,22 @@ header #add {
   max-width: 500px;
 }
 #feeds li {
-  margin-bottom: 5px;
+  margin-bottom: 5px;  
   background-color: #fff;
   border: 1px solid #999;
 }
 #feeds li a {
   display: inline-block;
-  padding: 5px 10px;
   color: #999;
 }
 #feeds li a:hover {
   color: #222;
+}
+#feeds li .edit {
+  padding: 5px 5px 5px 10px;
+}
+#feeds li .delete {
+  padding: 5px 10px 5px 5px;
 }
 
 /* modal */
