@@ -18,7 +18,7 @@ header #add {
   padding: 0 10px;
   max-width: 500px;
 }
-#feeds li {
+#feeds .feed {
   margin-bottom: 5px;  
   background-color: #fff;
   border: 1px solid #999;
@@ -26,21 +26,25 @@ header #add {
   padding-top: 4px;
   padding-bottom: 4px;
 }
-#feeds li a {
+.feed ul {
+  display: flex;
+  justify-content: space-between;
+}
+.feed li a {
   display: inline-block;
   color: #999;
 }
-#feeds li a:hover {
+.feed li a:hover {
   color: #222;
 }
-#feeds li .edit {
+.feed li .edit {
   padding: 4px 9px 4px 9px;
   margin-left: 10px;
+  margin-right: 10px;
 }
-#feeds li .delete {
+.feed li .delete {
   padding: 4px 10px 4px 10px;
-  margin-left: 5px;
-  margin-right: 15px;
+  margin-right: 10px;
 }
 
 /* modal */

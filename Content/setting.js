@@ -3,14 +3,18 @@ function render() {
   $('#feeds').empty();
   let buf = "";
   for (let i=0; i<conf.feeds.length; i++) {
-    buf += '<li data-index="' + i +'">' +
-    '<a class="edit" href="#">' +
-      '<i class="fas fa-pencil-alt"></i>' +
-    '</a>' +
+    buf +=
+    '<li class="feed" data-index="' + i +'">' +
+      '<ul><li>' +
+      '<a class="edit" href="#">' +
+        '<i class="fas fa-pencil-alt"></i>' +
+      '</a>' +
+      conf.feeds[i].title +
+      '</li><li>' +
       '<a class="delete" href="#">' +
         '<i class="fas fa-trash-alt"></i>' + 
-      '</a>' +
-      conf.feeds[i].title + '</li>';
+      '</a></li></ul>' +
+    '</li>';
   } //-> rebuild data-index.
   $('#feeds').html(buf)
 }
