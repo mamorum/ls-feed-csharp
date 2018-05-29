@@ -2,7 +2,7 @@
 
 
 ## デモ
-[https://mamorum.github.io/lsFeed/Content/](https://mamorum.github.io/lsFeed/Content/)
+[https://mamorum.github.io/lsFeed/Content/index.html](https://mamorum.github.io/lsFeed/Content/index.html)
 
 デモは閲覧できるフィードが固定されています。端末にインストールして利用すると、閲覧したいフィードを設定することができます。
 
