@@ -30,7 +30,6 @@ header #stop {
   background-color: #eee;
 }
 #feeds li a {
-  white-space: nowrap;
   padding: 8px 0px 7px 10px;
   font-size: 18px;
 }
