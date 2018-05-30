@@ -6,19 +6,19 @@ function render() {
   let buf = "";
   for (let i=0; i<conf.feeds.length; i++) {
     buf +=
-    '<li class="feed" data-index="' + i +'"><ul>' +
-      '<li>' +
+    '<li class="feed" data-index="' + i +'">' +
+      '<a class="bar" href="#"><i class="fas fa-bars"></i></a>' +
         '<a class="edit" href="#">' +
           '<i class="fas fa-pencil-alt"></i>' +
         '</a>' +
-        conf.feeds[i].title +
-      '</li>' +
-      '<li>' + 
+        '' +
+        conf.feeds[i].title + 
+        '' + 
         '<a class="delete" href="#">' +
           '<i class="fas fa-trash-alt"></i>' + 
         '</a>' +
-      '</li>' +
-    '</ul></li>';
+      '' +
+    '</li>';
   } //-> rebuild data-index.
   $('#feeds').html(buf)
 }
@@ -77,6 +77,9 @@ $(function() {
       feed.title, feed.url, 'Save'
     );
   });
+  $('#feeds').on('click', '.bar', (e) => {
+    e.preventDefault();
+  });
   $('#add').on('click', (e) => {
     e.preventDefault();
     modal(
@@ -94,6 +97,7 @@ $(function() {
     else if (mode === 'edit') edit(title, url);
   });
   //-> onload
+  Sortable.create($('#feeds')[0]);
   ConfApi.read((data) => {
     conf = data;
     if (conf.feeds.length != 0) {

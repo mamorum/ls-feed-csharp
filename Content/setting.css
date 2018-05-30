@@ -25,26 +25,35 @@ header #add {
   font-size: 18px;
   padding-top: 4px;
   padding-bottom: 4px;
+  position: relative;
+  cursor: move;
 }
-.feed ul {
-  display: flex;
-  justify-content: space-between;
-}
-.feed li a {
+.feed a {
   display: inline-block;
   color: #999;
 }
-.feed li a:hover {
+.feed a:hover {
   color: #222;
 }
-.feed li .edit {
+.feed a.bar {
+  padding: 4px 9px 4px 9px;
+  margin-left: 10px;
+  cursor: move;
+}
+.feed a.edit {
   padding: 4px 9px 4px 9px;
   margin-left: 10px;
   margin-right: 10px;
 }
-.feed li .delete {
+.feed a.delete {
   padding: 4px 10px 4px 10px;
   margin-right: 10px;
+  position: absolute;
+  right: 0;
+}
+#feeds .feed.sortable-chosen {
+  color: #fff;
+  background-color: #666;
 }
 
 /* modal */
