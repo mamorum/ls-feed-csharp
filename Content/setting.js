@@ -6,7 +6,7 @@ function render() {
   let buf = "";
   for (let i=0; i<conf.feeds.length; i++) {
     buf +=
-    '<li class="feed" data-index="' + i +'">' +
+    '<li class="feed" id="' + i +'">' +
       '<a class="bar" href="#"><i class="fas fa-bars"></i></a>' +
         '<a class="edit" href="#">' +
           '<i class="fas fa-pencil-alt"></i>' +
@@ -19,7 +19,7 @@ function render() {
         '</a>' +
       '' +
     '</li>';
-  } //-> rebuild data-index.
+  } //-> rebuild id.
   $('#feeds').html(buf)
 }
 function del(index) {
@@ -62,7 +62,7 @@ $(function() {
     let $li = $(
       e.currentTarget
     ).parents('.feed');
-    let index = $li.attr('data-index');
+    let index = $li.attr('id');
     del(index);
   });
   $('#feeds').on('click', '.edit', (e) => {
@@ -70,7 +70,7 @@ $(function() {
     let $li = $(
       e.currentTarget
     ).parents('.feed');
-    let index = $li.attr('data-index');
+    let index = $li.attr('id');
     feed = conf.feeds[index];
     modal(
       'edit', 'Edit the feed',
@@ -97,7 +97,19 @@ $(function() {
     else if (mode === 'edit') edit(title, url);
   });
   //-> onload
-  Sortable.create($('#feeds')[0]);
+  //Sortable.create($('#feeds')[0]);
+  $('#feeds').sortable({
+    update: function(){
+        let ids = $(this).sortable("toArray");
+        let feeds = [];
+        ids.forEach((id) => {
+          feeds.push(conf.feeds[id]);
+        });
+        conf.feeds = feeds;
+        ConfApi.write(conf, render);
+    }
+  });  
+  //$('#feeds').disableSelection();
   ConfApi.read((data) => {
     conf = data;
     if (conf.feeds.length != 0) {

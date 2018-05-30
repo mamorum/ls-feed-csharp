@@ -25,8 +25,9 @@ header #add {
   font-size: 18px;
   padding-top: 4px;
   padding-bottom: 4px;
-  position: relative;
   cursor: move;
+  user-select: none;
+  position: relative;
 }
 .feed a {
   display: inline-block;
@@ -42,18 +43,15 @@ header #add {
 }
 .feed a.edit {
   padding: 4px 9px 4px 9px;
-  margin-left: 8px;
+  margin-left: 5px;
   margin-right: 10px;
 }
 .feed a.delete {
+  position: absolute;
+  top: 5px;
+  right: 0;
   padding: 4px 10px 4px 10px;
   margin-right: 10px;
-  position: absolute;
-  right: 0;
-}
-#feeds .feed.sortable-chosen {
-  color: #fff;
-  background-color: #666;
 }
 
 /* modal */
