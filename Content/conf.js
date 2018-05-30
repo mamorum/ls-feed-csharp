@@ -1,7 +1,5 @@
-﻿let isDemo = 'localhost' != location.hostname;
-if (isDemo) {
-  $('#stop').addClass('hidden');
-}
+﻿let demo = 'localhost' != location.hostname;
+function isDemo() { return demo; }
 let demoData = {"feeds":
 [{
   "title": "NHK 主要",
@@ -28,7 +26,7 @@ class Conf {
 }
 class ConfApi {
   static read(done) {
-    if (isDemo) {
+    if (demo) {
       done(new Conf(demoData))
       return;
     }
@@ -39,10 +37,6 @@ class ConfApi {
     });
   }
   static write(conf, done) {
-    if (isDemo) {
-      done();
-      return;
-    }
     $.ajax({
       type: 'POST', url: '/write',
       data: JSON.stringify(conf),
@@ -53,7 +47,7 @@ class ConfApi {
 let reqUrl;
 class FetchApi {
   static fetch(url, done) {
-    if (isDemo) reqUrl = url;
+    if (demo) reqUrl = url;
     else reqUrl = '/fetch?url='+url;
     $.ajax({
       type: 'GET', url: reqUrl

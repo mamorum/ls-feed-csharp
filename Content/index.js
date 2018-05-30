@@ -82,6 +82,10 @@ $(function() {
     });
   });
   ///-> onload
+  if (isDemo()) {
+    $('#cog').addClass('hidden');
+    $('#stop').addClass('hidden');
+  }
   ConfApi.read((data) => {
     conf = data;
     if (conf.feeds.length != 0) {
