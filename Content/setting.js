@@ -1,4 +1,3 @@
-let conf = null;
 let mode = null; // 'edit' or 'add'
 let feed = null; // edit target
 function render() {
@@ -24,18 +23,18 @@ function render() {
 }
 function del(index) {
   conf.feeds.splice(index, 1);
-  ConfApi.write(conf, render);
+  postConf(render);
 }
 function add(title, url) {
   conf.feeds.push(
     {"title": title, "url": url}
   );
-  ConfApi.write(conf, writeDone);
+  postConf(writeDone);
 }
 function edit(title, url) {
   feed.title = title;
   feed.url = url;
-  ConfApi.write(conf, writeDone);
+  postConf(writeDone);
 }
 function writeDone() {
   render();
@@ -97,21 +96,18 @@ $(function() {
     else if (mode === 'edit') edit(title, url);
   });
   //-> onload
-  //Sortable.create($('#feeds')[0]);
   $('#feeds').sortable({
-    update: function(){
+    update: function() {
         let ids = $(this).sortable("toArray");
         let feeds = [];
         ids.forEach((id) => {
           feeds.push(conf.feeds[id]);
         });
         conf.feeds = feeds;
-        ConfApi.write(conf, render);
+        postConf(render);
     }
   });  
-  //$('#feeds').disableSelection();
-  ConfApi.read((data) => {
-    conf = data;
+  getConf(() => {
     if (conf.feeds.length != 0) {
       render();
     } 

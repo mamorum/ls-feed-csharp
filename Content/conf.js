@@ -1,6 +1,7 @@
-﻿let demo = 'localhost' != location.hostname;
-function isDemo() { return demo; }
-let demoData = {"feeds":
+﻿//-> globals
+let conf;
+let isDemo = 'localhost' != location.hostname;
+if (isDemo) conf = {"feeds":
 [{
   "title": "NHK 主要",
   "url": "https://www3.nhk.or.jp/rss/news/cat0.xml",
@@ -13,44 +14,33 @@ let demoData = {"feeds":
 },{
   "title": "NHK 国際",
   "url": "https://www3.nhk.or.jp/rss/news/cat6.xml"
-}]};  //-> CORS Feeds.
+}]}; //-> cors feeds
 
-class Conf {
-  constructor(json) {
-    if ('feeds' in json) {
-      this.feeds=json.feeds;
-    } else { //-> default
-      this.feeds=[];
+//-> ajax apis
+function getConf(fnc) {
+  if (isDemo) { fnc(); return; }
+  $.ajax({
+    type: 'GET', url: '/read'
+  }).done((data) => {
+    conf = data;
+    if (!('feeds' in conf)) {
+      conf.feeds=[]; // default
     }
-  }
+    fnc();
+  })
 }
-class ConfApi {
-  static read(done) {
-    if (demo) {
-      done(new Conf(demoData))
-      return;
-    }
-    $.ajax({
-      type: 'GET', url: '/read'
-    }).done((data) => {
-      done(new Conf(data));
-    });
-  }
-  static write(conf, done) {
-    $.ajax({
-      type: 'POST', url: '/write',
-      data: JSON.stringify(conf),
-      contentType: 'application/json;charset=utf-8'
-    }).done(done);
-  }
+function postConf(fnc) {
+  $.ajax({
+    type: 'POST', url: '/write',
+    data: JSON.stringify(conf),
+    contentType: 'application/json;charset=utf-8'
+  }).done(fnc);
 }
-let reqUrl;
-class FetchApi {
-  static fetch(url, done) {
-    if (demo) reqUrl = url;
-    else reqUrl = '/fetch?url='+url;
-    $.ajax({
-      type: 'GET', url: reqUrl
-    }).done(done);
-  }
+function getFeed(url, fnc) {
+  let feedUrl;
+  if (isDemo) feedUrl = url;
+  else feedUrl = '/fetch?url='+url;
+  $.ajax({
+    type: 'GET', url: feedUrl
+  }).done(fnc);
 }

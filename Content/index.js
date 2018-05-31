@@ -1,5 +1,6 @@
+// require conf.js
+
 let loading = false;
-let conf = null;
 let $li = null; // selected li (side menu)
 
 function fetch($a) {
@@ -16,7 +17,7 @@ function fetch($a) {
   $('.bottom').addClass('hidden');
   $('#title').text('Loading...');
   $('#feed').html('');
-  FetchApi.fetch($a.attr('href'), (data) => {
+  getFeed($a.attr('href'), (data) => {
     let list = '';
     let $items = $(data).find('item');
     for (let i=0; i<$items.length; i++) {
@@ -82,12 +83,11 @@ $(function() {
     });
   });
   ///-> onload
-  if (isDemo()) {
+  if (isDemo) {
     $('#cog').addClass('hidden');
     $('#stop').addClass('hidden');
   }
-  ConfApi.read((data) => {
-    conf = data;
+  getConf(function() {
     if (conf.feeds.length != 0) {
       $('.top').removeClass('hidden');
       let sb = "";
