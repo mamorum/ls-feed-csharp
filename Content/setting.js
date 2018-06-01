@@ -3,7 +3,6 @@ $(function() {
 
 //-> render conf
 function render() {
-  if (conf.feeds.length == 0) return;
   let buf = '';
   for (let i=0; i<conf.feeds.length; i++) {
     buf +=
