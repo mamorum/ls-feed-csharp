@@ -14,7 +14,7 @@ if (isDemo) conf = {"feeds":
 },{
   "title": "NHK 国際",
   "url": "https://www3.nhk.or.jp/rss/news/cat6.xml"
-}]}; //-> cors feeds
+}]}; // cors feeds
 
 //-> ajax apis
 function getConf(fnc) {
