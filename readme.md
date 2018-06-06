@@ -12,14 +12,16 @@ lsFeed は、デスクトップのブラウザでフィードを読むための�
 
 
 ## 動作環境
+以下の環境で動作します。
+
 - .NET Framework 4 以上が動作
 - ポート 8622 が未使用
 - ブラウザ有り
 
 ポート 8622 は、端末でサーバなどを起動してなければ気にしなくて大丈夫です。
 
+動作確認は、以下の環境で行っています。
 
-## 動作確認済環境
 - Windows10 64bit
 - Chrome 64bit
 
@@ -27,7 +29,11 @@ Windows10 だと .NET Framework のインストールは不要そうでした。
 
 
 ## インストール方法
-GitHub の [リリースページ](https://github.com/mamorum/lsFeed/releases) から、最新版の zip（`lsFeed-x.x.zip`）をダウンロードして、任意の場所に解凍します。
+以下の手順でインストールします。
+
+1. GitHub の [リリースページ](https://github.com/mamorum/lsFeed/releases) を開きます。
+2. 最新版の Zip（例：`lsFeed-1.0.0.zip`）をダウンロードします。
+3. Zip をローカルの任意の場所に解凍します。
 
 
 ## 利用方法
