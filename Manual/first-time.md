@@ -24,13 +24,16 @@ lsFeed をインストールしたフォルダを開いて、その中に入っ�
 
 ![登録用のモーダル](./first-time/modal.png)
 
-登録ウィンドウが開くので、タイトル（任意）と URL（フィードのアドレス）を入力して「Add」ボタンを押します。
+登録ウィンドウが開くので、
 
-```
-（例）
-Title：Yahoo! 主要
-URL：https://news.yahoo.co.jp/pickup/rss.xml
-```
+- タイトル（任意）
+- URL（フィードのアドレス）
+
+※ 例
+- タイトル：Yahoo! 主要
+- URL：https://news.yahoo.co.jp/pickup/rss.xml
+
+を入力して「Add」ボタンを押します。
 
 登録できたら、設定画面左上の「<」ボタンを押して元の画面に戻ります。
 
