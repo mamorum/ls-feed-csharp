@@ -41,9 +41,9 @@ Windows10 だと .NET Framework のインストールは不要そうでした。
 ## 利用方法
 アプリの使い方や終了方法は、以下のドキュメントに書いています。
 
-1. [初回利用方法](./Doc/first-time.md)
-2. [フィードの閲覧方法](./Doc/reading-feeds.md)
-3. [フィードの設定方法](./Doc/setting-feeds.md)
+1. [初回利用方法](./Manual/first-time.md)
+2. [フィードの閲覧方法](./Manual/reading-feeds.md)
+3. [フィードの設定方法](./Manual/setting-feeds.md)
 
 
 ## アンインストール方法
