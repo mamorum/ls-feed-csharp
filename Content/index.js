@@ -42,16 +42,30 @@ e.preventDefault();
   $('#feed').html('');
   getFeed($a.attr('href'), renderFeed);
 });  
-function renderFeed(data) {    
+function getHref(isRss, $link) {
+  if (isRss) return $link.text();
+  else return $link.attr('href');
+}
+function renderFeed(data) {
+  let isRss = true; 
+  let $items = $(data).children('item'); //-> rss 1.0
+  if ($items.length == 0) { //-> rss 2.0
+    $items = $(data).find('channel:first').children('item');
+  } 
+  if ($items.length == 0) { //-> atom
+    $items = $(data).find('feed:first').children('entry');
+    isRss = false;
+  }
+  let $item = null;
+  let href = '';
   let list = '';
-  let $items = $(data).find('item');
   for (let i=0; i<$items.length; i++) {
     if (i === 8) break;
-    let $item = $($items[i]);
+    $item = $($items[i]);
+    href = getHref(isRss, $item.children('link'));
     list += '<li>' +
-      '<a href="' + $item.find('link').text() +
-      '" target="_blank">' +
-      $item.find('title').text() + '</a>' + 
+      '<a href="' + href + '" target="_blank">' +
+      $item.children('title').text() + '</a>' + 
     '</li>';
   };
   $('#feed').html(list);
