@@ -1,4 +1,5 @@
 Installer/Build/Content
+Installer/*.zip
 lsFeed.exe
 
 ## Ignore Visual Studio temporary files, build results, and
