@@ -5,6 +5,7 @@ set DST=%USERPROFILE%\lsFeed
 if exist "%DST%" (
   rmdir "%DST%\Content" /S /Q
   del "%DST%\lsFeed.exe" /Q
+  del "%DST%\readme.txt" /Q
 ) else (
   mkdir "%DST%"
 )
