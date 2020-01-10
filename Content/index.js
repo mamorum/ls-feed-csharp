@@ -48,12 +48,12 @@ function getHref(isRss, $link) {
 }
 function renderFeed(data) {
   let isRss = true; 
-  let $items = $(data).children('item'); //-> rss 1.0
+  let $items = $(data.firstElementChild).children('item'); //-> rss 1.0
   if ($items.length == 0) { //-> rss 2.0
-    $items = $(data).find('channel:first').children('item');
+    $items = $(data.firstElementChild.firstElementChild).children('item');
   } 
   if ($items.length == 0) { //-> atom
-    $items = $(data).find('feed:first').children('entry');
+    $items = $(data.firstElementChild).children('entry');
     isRss = false;
   }
   let $item = null;
