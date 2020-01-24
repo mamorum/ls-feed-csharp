@@ -41,34 +41,31 @@ e.preventDefault();
   $('#title').text('Loading...');
   $('#feed').html('');
   getFeed($a.attr('href'), renderFeed);
-});  
-function getHref(isRss, $link) {
-  if (isRss) return $link.text();
-  else return $link.attr('href');
-}
+});
 function renderFeed(data) {
-  let isRss = true; 
-  let $items = $(data.firstElementChild).children('item'); //-> rss 1.0
-  if ($items.length == 0) { //-> rss 2.0
-    $items = $(data.firstElementChild.firstElementChild).children('item');
+  let isRss = false;
+  let node1 = data.firstElementChild;
+  let node2 = node1.firstElementChild;
+  let $items = $(node1).children('entry'); //-> atom
+  if ($items.length == 0) {
+    isRss = true;
+    $items = $(node2).children('item'); //-> rss 2.0
+    if ($items.length == 0) {
+      $items = $(node1).children('item'); //-> rss 1.0
+    }
   } 
-  if ($items.length == 0) { //-> atom
-    $items = $(data.firstElementChild).children('entry');
-    isRss = false;
-  }
-  let $item = null;
-  let href = '';
-  let list = '';
+  let $item = null, lis = '';
   for (let i=0; i<$items.length; i++) {
     if (i === 8) break;
     $item = $($items[i]);
-    href = getHref(isRss, $item.children('link'));
-    list += '<li>' +
-      '<a href="' + href + '" target="_blank">' +
-      $item.children('title').text() + '</a>' + 
-    '</li>';
+    lis += '<li><a href="';
+    if (isRss) lis += $item.children('link').text();
+    else lis += $item.children('link').attr('href');
+    lis += '" target="_blank">';
+    lis += $item.children('title').text();
+    lis += '</a></li>';
   };
-  $('#feed').html(list);
+  $('#feed').html(lis);
   $('#title').text($a.text());
   $('.bottom').removeClass('hidden');
   loading = false;
