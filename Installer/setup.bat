@@ -1,4 +1,5 @@
 @echo off
+curl http://localhost:8622/stop -s
 echo.>.\unblock.ps1:Zone.Identifier
 powershell -NoProfile -ExecutionPolicy Unrestricted .\unblock.ps1
 set DST=%USERPROFILE%\lsFeed
