@@ -20,6 +20,10 @@ $('#side').on('click', function(e) {
   e.preventDefault();
   if (showing) hide();
 });
+//-> click disabled feed
+function disableA() {
+  return false;
+}
 //-> click side menu (get feed)
 let loading = false;
 let $li = null; // clicked
@@ -54,18 +58,20 @@ function renderFeed(data) {
       $items = $(node1).children('item'); //-> rss 1.0
     }
   } 
-  let $item = null, lis = '';
+  let $item, $ia, link;
   for (let i=0; i<$items.length; i++) {
     if (i === 8) break;
     $item = $($items[i]);
-    lis += '<li><a href="';
-    if (isRss) lis += $item.children('link').text();
-    else lis += $item.children('link').attr('href');
-    lis += '" target="_blank">';
-    lis += $item.children('title').text();
-    lis += '</a></li>';
+    $ia = $('<a>');
+    if (isRss) link = $item.children('link').text();
+    else link = $item.children('link').attr('href');
+    $ia.attr('href', link);
+    $ia.attr('target', "_blank");
+    $ia.attr('class', 'disabled'); // 設定で変わる
+    $ia.on('click', disableA); // 設定で変わる
+    $ia.text($item.children('title').text());
+    $('#feed').append($('<li>').append($ia));
   };
-  $('#feed').html(lis);
   $('#title').text($a.text());
   $('.bottom').removeClass('hidden');
   loading = false;

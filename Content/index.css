@@ -94,6 +94,12 @@ header #stop {
 #feed li a:hover {
   text-decoration: underline;
 }
+#feed li a.disabled {
+  cursor: default;
+}
+#feed li a.disabled:hover {
+  text-decoration: none;
+}
 
 /* -> if (width < 768) show bar, hide side */
 @media (max-width: 767px) {
