@@ -43,7 +43,7 @@ e.preventDefault();
   $li.addClass('selected');
   $('.bottom').addClass('hidden');
   $('#title').text('Loading...');
-  $('#feed').html('');
+  $('#items').html('');
   getFeed($a.attr('href'), renderFeed);
 });
 function renderFeed(data) {
@@ -70,7 +70,7 @@ function renderFeed(data) {
     $ia.attr('class', 'disabled'); // 設定で変わる
     $ia.on('click', disableA); // 設定で変わる
     $ia.text($item.children('title').text());
-    $('#feed').append($('<li>').append($ia));
+    $('#items').append($('<li>').append($ia));
   };
   $('#title').text($a.text());
   $('.bottom').removeClass('hidden');

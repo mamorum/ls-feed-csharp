@@ -9,7 +9,6 @@ header a {
   color: #fff;
 }
 header #bar {
-  display: none;
   padding: 9px 13px 7px 13px;
 }
 header #cog {
@@ -19,16 +18,14 @@ header #stop {
   padding: 10px 12px 6px 12px;
 }
 
-/* side */
-#side {
-  position: fixed;
-  top: 40px;
-  left: 0;
-  bottom: 0;
-  width: 180px;
-  overflow-y: auto;
-  background-color: #eee;
+/* main */
+#main {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 400px;
 }
+
+/* feeds */
 #feeds li a {
   padding: 8px 0px 7px 10px;
   font-size: 18px;
@@ -44,12 +41,10 @@ header #stop {
   background-color: #333;
 }
 
-/* main */
-#main {
-  margin: 20px auto;
-  max-width: 600px;
-  padding-left: 190px;
-  padding-right: 10px;
+/* feed */
+#feed {
+  margin-top: 20px;
+  margin-bottom: 60px; /* for ios */
 }
 .ctrl {
   display: flex;
@@ -70,45 +65,35 @@ header #stop {
   margin-top: 3px;
   font-size: 20px;
 }
-#feed {
+#items {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-#feed li {
+#items li {
   border-bottom: 1px solid #999;
 }
-#feed li:first-child {
+#items li:first-child {
   border-top: 1px solid #999;
 }
-#feed li a {
+#items li a {
   padding: 13px 15px;
 }
-#feed li a:visited {
+#items li a:visited {
   color: #825;
 }
-#feed li a:hover {
+#items li a:hover {
   text-decoration: underline;
 }
-#feed li a.disabled {
+#items li a.disabled {
   cursor: default;
 }
-#feed li a.disabled:hover {
+#items li a.disabled:hover {
   text-decoration: none;
 }
 
 /* -> if (width < 768) show bar, hide side */
 @media (max-width: 767px) {
   header #bar {
-    display: block;
-  }
-  #main {
-    padding-left: 10px;
-    margin-bottom: 60px; /* for ios */
-  }
-  #side {
-    display: none;
-  }
-  #side.active {
     display: block;
   }
 }
